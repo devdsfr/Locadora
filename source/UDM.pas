@@ -16,6 +16,14 @@ type
     cdsClientesNOME_CLIENTE: TStringField;
     spCliente: TSQLStoredProc;
     spClienteDel: TSQLStoredProc;
+    cdsUsuarios: TClientDataSet;
+    spUsuarios: TSQLStoredProc;
+    spUsuariosDel: TSQLStoredProc;
+    cdsUsuariosID_USUARIO: TIntegerField;
+    cdsUsuariosNOME: TStringField;
+    cdsUsuariosLOGIN: TStringField;
+    cdsUsuariosSENHA: TStringField;
+    cdsUsuariosADM: TStringField;
     procedure cdsClientesBeforeDelete(DataSet: TDataSet);
     procedure cdsClientesBeforePost(DataSet: TDataSet);
     procedure cdsClientesNewRecord(DataSet: TDataSet);

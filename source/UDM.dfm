@@ -34,8 +34,8 @@ object DM: TDM
       'TrimChar=False'
       'DriverName=Firebird'
       
-        'Database=C:\Users\Daniel\Desktop\Jobs\Locadora\database\LOCADORA' +
-        '.FDB'
+        'Database=C:\Users\Daniel\Desktop\Jobs\LocadoraM\database\LOCADOR' +
+        'A.FDB'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'
@@ -48,17 +48,16 @@ object DM: TDM
       'WaitOnLocks=True'
       'IsolationLevel=ReadCommitted'
       'Trim Char=False')
-    Connected = True
     Left = 24
     Top = 16
   end
   object sqlGenerico: TSQLDataSet
-    CommandText = 'select * from CLIENTES where ID_CLIENTE=:ID_CLIENTE'
+    CommandText = 'select * from USUARIOS where ID_USUARIO=:ID_USUARIO'
     MaxBlobSize = -1
     Params = <
       item
         DataType = ftInteger
-        Name = 'ID_CLIENTE'
+        Name = 'ID_USUARIO'
         ParamType = ptInput
       end>
     SQLConnection = SQLConnection1
@@ -72,7 +71,6 @@ object DM: TDM
     Top = 16
   end
   object cdsClientes: TClientDataSet
-    Active = True
     Aggregates = <>
     CommandText = 'select * from CLIENTES where ID_CLIENTE=:ID_CLIENTE'
     Params = <
@@ -130,6 +128,100 @@ object DM: TDM
     SQLConnection = SQLConnection1
     StoredProcName = 'CLIENTES_D'
     Left = 16
+    Top = 216
+  end
+  object cdsUsuarios: TClientDataSet
+    Active = True
+    Aggregates = <>
+    CommandText = 'select * from USUARIOS where ID_USUARIO=:ID_USUARIO'
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_USUARIO'
+        ParamType = ptUnknown
+      end>
+    ProviderName = 'dspGenerico'
+    BeforePost = cdsClientesBeforePost
+    BeforeDelete = cdsClientesBeforeDelete
+    OnNewRecord = cdsClientesNewRecord
+    Left = 96
+    Top = 104
+    object cdsUsuariosID_USUARIO: TIntegerField
+      FieldName = 'ID_USUARIO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsUsuariosNOME: TStringField
+      FieldName = 'NOME'
+      Required = True
+      Size = 50
+    end
+    object cdsUsuariosLOGIN: TStringField
+      FieldName = 'LOGIN'
+      Required = True
+      Size = 10
+    end
+    object cdsUsuariosSENHA: TStringField
+      FieldName = 'SENHA'
+      FixedChar = True
+      Size = 10
+    end
+    object cdsUsuariosADM: TStringField
+      FieldName = 'ADM'
+      FixedChar = True
+      Size = 1
+    end
+  end
+  object spUsuarios: TSQLStoredProc
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Precision = 4
+        Name = 'ID_USUARIO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Precision = 50
+        Name = 'NOME'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Precision = 10
+        Name = 'LOGIN'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftFixedChar
+        Precision = 10
+        Name = 'SENHA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftFixedChar
+        Precision = 1
+        Name = 'ADM'
+        ParamType = ptInput
+      end>
+    SQLConnection = SQLConnection1
+    StoredProcName = 'USUARIOS_IU'
+    Left = 96
+    Top = 160
+  end
+  object spUsuariosDel: TSQLStoredProc
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Precision = 4
+        Name = 'ID_USUARIO'
+        ParamType = ptInput
+      end>
+    SQLConnection = SQLConnection1
+    StoredProcName = 'USUARIOS_D'
+    Left = 96
     Top = 216
   end
 end
